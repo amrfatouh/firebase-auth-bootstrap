@@ -5,6 +5,11 @@ loginForm.onsubmit = function (e) {
     const password = loginForm['login-password'].value;
     auth.signInWithEmailAndPassword(email, password);
 
+    //adding loader icon till guides are loaded from database
+    document.querySelector('#guides-accordion').innerHTML = `
+        <i class="fas fa-spinner fa-pulse fa-4x mt-5 text-center d-block w-75 mx-auto" style='color: #e2e20d'></i>
+    `;
+
     loginForm.reset();
     $('#login-modal').modal('hide');
 }
@@ -14,7 +19,16 @@ signupForm.onsubmit = function (e) {
     e.preventDefault();
     const email = signupForm['sign-up-email'].value;
     const password = signupForm['sign-up-password'].value;
-    auth.createUserWithEmailAndPassword(email, password);
+    const bio = signupForm['sign-up-bio'].value;
+    //making new user & setting his bio at the firestore
+    auth.createUserWithEmailAndPassword(email, password).then(credentials => {
+        db.collection('users').doc(credentials.user.uid).set({ bio })
+    })
+
+    //adding loader icon till guides are loaded from database
+    document.querySelector('#guides-accordion').innerHTML = `
+        <i class="fas fa-spinner fa-pulse fa-4x mt-5 text-center d-block w-75 mx-auto" style='color: #e2e20d'></i>
+    `;
 
     signupForm.reset();
     $('#sign-up-modal').modal('hide');
@@ -62,6 +76,12 @@ auth.onAuthStateChanged(user => {
                 `;
             });
             document.querySelector('#guides-accordion').innerHTML = html;
+
+            //show user info
+            const userInfoBody = document.querySelector('#user-info-body');
+            db.collection('users').doc(user.uid).get().then(doc => {
+                userInfoBody.innerHTML = doc.data().bio;
+            })
         })
     } else {
         //show nav items

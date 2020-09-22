@@ -26,8 +26,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto nav-fill">
-                    <a style='display: none;' class="mr-4 logged-in nav-link active" href="#" data-toggle="modal"
-                        data-target="#account-modal">Account <span class="sr-only">(current)</span></a>
+                    <a style='display: none;' class="mr-4 logged-in nav-link" href="#" data-toggle="modal"
+                        data-target="#account-modal">Account</a>
                     <a style='display: none;' class="mr-4 logged-in nav-link" href="#"
                         onclick='auth.signOut()'>Logout</a>
                     <a style='display: none;' class="mr-4 logged-in nav-link" href="#" data-toggle="modal"
@@ -64,6 +64,10 @@
                         <div class="form-group">
                             <label for="sign-up-password">Password</label>
                             <input required type="password" class="form-control" id="sign-up-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="sign-up-bio">Bio</label>
+                            <input required type="text" class="form-control" id="sign-up-bio">
                         </div>
                         <button type="submit" class="btn btn-warning ml-auto d-block">Sign up</button>
                     </form>
@@ -139,7 +143,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id='user-info-body'>
 
                 </div>
             </div>
@@ -149,7 +153,7 @@
 
     <div class="container">
         <div class="accordion" id="guides-accordion">
-
+            <i class="fas fa-spinner fa-pulse fa-4x mt-5 text-center d-block w-75 mx-auto" style='color: #e2e20d'></i>
         </div>
     </div>
 
@@ -201,6 +205,8 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/16c9de6a77.js" crossorigin="anonymous"></script>
 
     <script src="main.js"></script>
 </body>
